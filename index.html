@@ -29,7 +29,6 @@
             align-items: center;
         }
 
-        /* Futuristinen animoitu tausta */
         body::before {
             content: "";
             position: fixed;
@@ -57,7 +56,6 @@
             text-align: center;
         }
 
-        /* Hakukenttä alkuperäisestä koodista viritettynä */
         .search-container {
             width: 100%;
             max-width: 900px;
@@ -93,7 +91,6 @@
             gap: 12px;
         }
 
-        /* Vaakasuuntainen pelaajarivi (Horizontal) */
         .player-row {
             display: grid;
             grid-template-columns: 80px 1.5fr 3.5fr;
@@ -145,29 +142,16 @@
             padding: 6px 12px;
             border-radius: 8px;
             background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border);
+            border: 1px solid var(--gold); /* TÄMÄ ON NYT KAIKILLA */
             font-family: 'Rajdhani', sans-serif;
         }
 
-        .ht-tag {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-
-        .lt-tag {
-            color: #888;
-        }
+        .ht-tag { color: var(--gold); }
+        .lt-tag { color: #888; }
 
         @media (max-width: 768px) {
-            .player-row {
-                grid-template-columns: 50px 1fr;
-                gap: 10px;
-            }
-            .multi-ranks {
-                grid-column: 1 / span 2;
-                justify-content: center;
-                margin-top: 10px;
-            }
+            .player-row { grid-template-columns: 50px 1fr; gap: 10px; }
+            .multi-ranks { grid-column: 1 / span 2; justify-content: center; margin-top: 10px; }
         }
     </style>
 </head>
@@ -179,11 +163,9 @@
         <input type="text" id="searchBox" placeholder="🔍 Etsi pelaajia..." onkeyup="updateList()">
     </div>
 
-    <div class="leaderboard-container" id="list-container">
-        </div>
+    <div class="leaderboard-container" id="list-container"></div>
 
     <script>
-        // DATA - Pidetty alkuperäisenä
         const PLAYERS_DATABASE = [
             {
                 name: "MrKetsuppi",
@@ -215,8 +197,7 @@
                     return `
                         <div class="tier-tag ${r.type === 'ht' ? 'ht-tag' : 'lt-tag'}">
                             ${gmIcons[r.label] || "🛡️"} ${r.val}
-                        </div>
-                    `;
+                        </div>`;
                 }).join('');
                 
                 container.innerHTML += `
@@ -227,8 +208,6 @@
                     </div>`;
             });
         }
-
-        // Käynnistys
         updateList();
     </script>
 </body>
