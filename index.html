@@ -117,6 +117,7 @@
         }
 
         .rank-1 { color: var(--gold); filter: drop-shadow(0 0 10px var(--gold)); }
+        .rank-other { color: #666; }
 
         .player-name {
             font-family: 'Rajdhani', sans-serif;
@@ -142,7 +143,7 @@
             padding: 6px 12px;
             border-radius: 8px;
             background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--gold); /* TÄMÄ ON NYT KAIKILLA */
+            border: 1px solid var(--gold);
             font-family: 'Rajdhani', sans-serif;
         }
 
@@ -176,6 +177,16 @@
                     { label: "UHC", val: "LT5", type: "lt" },
                     { label: "Mace", val: "LT5", type: "lt" }
                 ]
+            },
+            {
+                name: "YEHORPROMAX",
+                ranks: [
+                    { label: "Sword", val: "LT5", type: "lt" },
+                    { label: "Crystal", val: "LT5", type: "lt" },
+                    { label: "Axe", val: "LT5", type: "lt" },
+                    { label: "UHC", val: "LT5", type: "lt" },
+                    { label: "Mace", val: "LT5", type: "lt" }
+                ]
             }
         ];
 
@@ -190,7 +201,7 @@
 
             filtered.forEach((p, i) => {
                 const num = i + 1;
-                const rClass = num === 1 ? 'rank-1' : '';
+                const rClass = num === 1 ? 'rank-1' : 'rank-other';
                 const rIcon = num === 1 ? '🏆' : `#${num}`;
                 
                 const ranksHtml = p.ranks.map(r => {
