@@ -23,7 +23,7 @@
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
-            padding: 30px 15px;
+            padding: 40px 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -46,44 +46,45 @@
 
         .header-title {
             font-family: 'Rajdhani', sans-serif;
-            font-size: clamp(32px, 8vw, 64px);
+            font-size: clamp(30px, 7vw, 64px);
             font-weight: 800;
-            letter-spacing: clamp(4px, 2vw, 15px);
+            letter-spacing: clamp(2px, 2vw, 15px);
             text-transform: uppercase;
             color: var(--accent);
             text-shadow: 0 0 30px var(--accent-glow);
             margin-bottom: 30px;
             text-align: center;
+            padding-top: 10px;
         }
 
-        /* SIDEBAR */
+        /* SIDEBAR & FIXED MENU BUTTON */
         .menu-btn {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 15px; /* Nostettu ylemmäs */
+            right: 15px;
             z-index: 1000;
             cursor: pointer;
             background: var(--glass);
             border: 1px solid var(--border);
-            padding: 10px;
+            padding: 8px;
             border-radius: 8px;
             backdrop-filter: blur(10px);
         }
 
-        .menu-btn div { width: 25px; height: 3px; background-color: white; margin: 5px 0; transition: 0.4s; }
+        .menu-btn div { width: 22px; height: 2px; background-color: white; margin: 5px 0; transition: 0.4s; }
 
         .sidebar {
             position: fixed;
             top: 0;
             right: -320px;
-            width: 320px;
+            width: 300px;
             height: 100%;
             background: rgba(10, 0, 0, 0.98);
             backdrop-filter: blur(25px);
             border-left: 1px solid var(--accent);
             z-index: 999;
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            padding: 80px 30px;
+            padding: 80px 25px;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -91,7 +92,7 @@
 
         .sidebar.active { right: 0; }
         .sidebar h2 { font-family: 'Rajdhani', sans-serif; color: var(--accent); font-size: 22px; }
-        .sidebar p { font-size: 13px; line-height: 1.6; color: #ccc; margin-bottom: 5px; }
+        .sidebar p { font-size: 13px; line-height: 1.6; color: #ccc; }
         .sidebar .server-ip {
             background: rgba(255, 0, 0, 0.15);
             padding: 10px;
@@ -110,7 +111,6 @@
             border-radius: 5px;
             text-align: center;
             font-weight: bold;
-            font-size: 14px;
         }
 
         /* SEARCH */
@@ -132,7 +132,6 @@
             border-radius: 25px;
             outline: none;
             backdrop-filter: blur(10px);
-            font-family: 'Inter', sans-serif;
             font-size: 16px;
         }
 
@@ -147,7 +146,7 @@
 
         .player-row {
             display: grid;
-            grid-template-columns: 60px 2fr 3fr;
+            grid-template-columns: 50px 1.2fr 3.8fr; /* Enemmän tilaa tiereille */
             align-items: center;
             background: var(--glass);
             backdrop-filter: blur(20px);
@@ -159,34 +158,41 @@
         }
 
         .player-row:hover {
-            transform: scale(1.02);
+            transform: scale(1.01);
             border-color: var(--accent);
             background: rgba(255, 0, 0, 0.05);
         }
 
-        .rank-id { font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 20px; text-align: center; }
+        .rank-id { font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 18px; text-align: center; }
         .rank-1 { color: var(--gold); filter: drop-shadow(0 0 10px var(--gold)); }
         .rank-other { color: #666; }
 
-        .player-name { font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 700; text-transform: uppercase; }
+        .player-name { font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 700; text-transform: uppercase; }
 
-        .multi-ranks { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+        .multi-ranks { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 6px; 
+            justify-content: flex-end; 
+        }
 
         .tier-tag {
             display: flex;
             align-items: center;
-            gap: 5px;
-            font-size: 10px;
+            gap: 4px;
+            font-size: 9px;
             font-weight: 800;
-            padding: 5px 10px;
+            padding: 4px 8px;
             border-radius: 6px;
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--gold);
             font-family: 'Rajdhani', sans-serif;
+            white-space: nowrap;
         }
 
         .ht-tag { color: var(--gold); }
         .lt-tag { color: #888; }
+        .untested { color: #333; border-color: #222; }
 
         /* MODAL */
         .modal {
@@ -203,21 +209,27 @@
         .modal-content {
             background: var(--bg);
             border: 1px solid var(--accent);
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
-            width: 95%;
-            max-width: 600px;
+            width: 90%;
+            max-width: 500px;
             position: relative;
         }
 
-        .close-modal { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 28px; color: var(--accent); }
-
-        .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+        .close-modal { position: absolute; top: 15px; right: 15px; cursor: pointer; font-size: 24px; color: var(--accent); }
 
         @media (max-width: 768px) {
-            .player-row { grid-template-columns: 45px 1fr; padding: 12px; }
-            .multi-ranks { grid-column: 1 / span 2; justify-content: center; margin-top: 10px; }
-            .modal-grid { grid-template-columns: 1fr; }
+            .player-row { 
+                grid-template-columns: 40px 1fr; 
+                padding: 12px;
+            }
+            .multi-ranks { 
+                grid-column: 1 / span 2; 
+                justify-content: center; 
+                margin-top: 10px;
+                gap: 4px;
+            }
+            .player-name { font-size: 14px; text-align: center; }
         }
     </style>
 </head>
@@ -249,9 +261,9 @@
     <div class="modal" id="playerModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">×</span>
-            <h2 id="modalName" style="font-family: 'Rajdhani'; font-size: 28px; color: var(--accent); text-transform: uppercase;"></h2>
-            <p id="modalRank" style="color: var(--gold); margin-bottom: 20px; font-family: 'Rajdhani'; font-weight: bold;"></p>
-            <div class="modal-grid" id="modalGrid"></div>
+            <h2 id="modalName" style="font-family: 'Rajdhani'; font-size: 24px; color: var(--accent); text-transform: uppercase; text-align: center;"></h2>
+            <p id="modalRank" style="color: var(--gold); margin-bottom: 20px; font-family: 'Rajdhani'; font-weight: bold; text-align: center;"></p>
+            <div id="modalGrid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"></div>
         </div>
     </div>
 
@@ -294,7 +306,7 @@
                 const data = p.ranks[gm];
                 const isUntested = !data;
                 html += `
-                    <div class="tier-tag ${isUntested ? 'untested' : (data.type === 'ht' ? 'ht-tag' : 'lt-tag')}" style="justify-content: space-between; font-size: 14px; padding: 12px;">
+                    <div class="tier-tag ${isUntested ? 'untested' : (data.type === 'ht' ? 'ht-tag' : 'lt-tag')}" style="justify-content: space-between; font-size: 12px; padding: 10px;">
                         <span>${gmIcons[gm]} ${gm}</span>
                         <span>${isUntested ? 'Untested' : data.val}</span>
                     </div>`;
@@ -310,16 +322,19 @@
             const q = document.getElementById('searchBox').value.toLowerCase();
             container.innerHTML = "";
             const filtered = PLAYERS_DATABASE.filter(p => p.name.toLowerCase().includes(q));
+            
             filtered.forEach((p) => {
                 const realIndex = PLAYERS_DATABASE.findIndex(x => x.name === p.name);
                 const position = realIndex + 1;
                 const rClass = position === 1 ? 'rank-1' : 'rank-other';
                 const rIcon = position === 1 ? '🏆' : `#${position}`;
-                const rankKeys = Object.keys(p.ranks).slice(0, 3);
-                const ranksHtml = rankKeys.map(key => `
+                
+                // Nyt haetaan KAIKKI olemassa olevat rankit listaan
+                const ranksHtml = Object.keys(p.ranks).map(key => `
                     <div class="tier-tag ${p.ranks[key].type === 'ht' ? 'ht-tag' : 'lt-tag'}">
                         ${gmIcons[key] || "🛡️"} ${p.ranks[key].val}
                     </div>`).join('');
+
                 container.innerHTML += `
                     <div class="player-row" onclick="openPlayerPage('${p.name}')">
                         <div class="rank-id ${rClass}">${rIcon}</div>
