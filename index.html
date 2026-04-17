@@ -2,99 +2,185 @@
 <html lang="fi">
 <head>
     <meta charset="UTF-8">
-    <title>Rankhify</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rankhify | THE ONE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700;800&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0a0a0a; --card: #141414; --text: #ffffff;
-            --accent: #5865f2; --border: #252525;
-            --gold: #ffd700; --silver: #c0c0c0; --bronze: #cd7f32;
+            --bg: #030303;
+            --accent: #7000ff;
+            --accent-glow: rgba(112, 0, 255, 0.6);
+            --gold: #ffcc00;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
         }
-        * { user-select: none; box-sizing: border-box; }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; overflow-y: scroll; }
-        nav { width: 100%; padding: 20px; background: #000; border-bottom: 2px solid var(--border); text-align: center; font-size: 24px; font-weight: 900; color: var(--accent); position: sticky; top: 0; z-index: 10; }
-        
-        .search-container { padding: 20px; display: flex; justify-content: center; }
-        #searchBox { width: 100%; max-width: 500px; padding: 12px 20px; background: #1a1a1a; border: 1px solid var(--border); color: white; border-radius: 25px; outline: none; cursor: text; }
-        
-        .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 20px; }
-        .player-row { background: var(--card); border: 1px solid var(--border); padding: 15px 25px; margin-bottom: 10px; display: grid; grid-template-columns: 80px 1.5fr 3.5fr; align-items: center; border-radius: 10px; transition: 0.2s; }
-        .player-row:hover { border-color: var(--accent); background: #1a1a1a; }
-        
-        .rank-id { font-weight: bold; font-size: 22px; text-align: center; }
-        .rank-1 { color: var(--gold); } .rank-2 { color: var(--silver); } .rank-3 { color: var(--bronze); }
-        
-        .player-name { font-size: 18px; font-weight: 700; }
-        
-        .multi-ranks { display: flex; flex-wrap: wrap; gap: 6px; }
-        .tier-tag { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 5px; background: #000; border: 1px solid #333; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Futuristinen animoitu tausta */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 40%);
+            animation: drift 10s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes drift {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(10%, 10%); }
+        }
+
+        .profile-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            text-align: center;
+            background: var(--glass);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .crown {
+            font-size: 50px;
+            margin-bottom: 10px;
+            display: block;
+            filter: drop-shadow(0 0 15px var(--gold));
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 56px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+            background: linear-gradient(to bottom, #fff 40%, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--accent);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            background: rgba(112, 0, 255, 0.05);
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 10px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .ht-text { color: var(--gold); text-shadow: 0 0 10px rgba(255,204,0,0.3); }
+        .lt-text { color: #aaa; }
+
+        .mace-full { grid-column: span 2; }
+
     </style>
 </head>
 <body>
 
-<nav>RANKHIFY</nav>
+    <div class="profile-container">
+        <span class="crown">👑</span>
+        <h1>MrKetsuppi</h1>
+        <div class="status-badge">TOP TIER PLAYER</div>
 
-<div class="search-container">
-    <input type="text" id="searchBox" placeholder="🔍 Etsi pelaajia..." onkeyup="updateList()">
-</div>
-
-<div class="container" id="list-container"></div>
-
-<script>
-    // ==========================================
-    // MUOKKAA PELAAJIA TÄSTÄ ALTA
-    // ==========================================
-    const PLAYERS_DATABASE = [
-        { 
-            name: "MrKetsuppi", 
-            ranks: { Sword: "HT5", Crystal: "HT4", UHC: "LT5", Mace: "LT5", Axe: "HT5" }
-        }
-    ];
-    // ==========================================
-
-    // Pisteytysjärjestelmä laskentaan (HT1 paras)
-    const TIER_ORDER = {
-        "HT1": 1000, "HT2": 900, "HT3": 800, "HT4": 700, "HT5": 600,
-        "LT1": 500, "LT2": 400, "LT3": 300, "LT4": 200, "LT5": 100
-    };
-
-    const gmIcons = { Sword: "⚔️", Crystal: "🔮", Axe: "🪓", Mace: "🔨", UHC: "🍎" };
-
-    function updateList() {
-        const container = document.getElementById('list-container');
-        const q = document.getElementById('searchBox').value.toLowerCase();
-        container.innerHTML = "";
-
-        const filtered = PLAYERS_DATABASE
-            .filter(p => p.name.toLowerCase().includes(q))
-            .sort((a, b) => {
-                // Lasketaan kokonaispisteet tai paras tieri (tässä paras tieri ratkaisee)
-                const bestA = Math.max(...Object.values(a.ranks).map(t => TIER_ORDER[t] || 0));
-                const bestB = Math.max(...Object.values(b.ranks).map(t => TIER_ORDER[t] || 0));
-                return bestB - bestA;
-            });
-
-        filtered.forEach((p, i) => {
-            const num = i + 1;
-            const rClass = num === 1 ? 'rank-1' : num === 2 ? 'rank-2' : num === 3 ? 'rank-3' : '';
-            const rIcon = num === 1 ? '🏆' : num === 2 ? '🥈' : num === 3 ? '🥉' : `#${num}`;
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Sword Mastery</span>
+                <div class="stat-value ht-text">⚔️ HT5</div>
+            </div>
             
-            const ranksHtml = Object.entries(p.ranks).map(([gm, tr]) => {
-                const isHigh = tr.startsWith("HT");
-                const borderColor = isHigh ? "var(--gold)" : "#444";
-                const textColor = isHigh ? "#fff" : "#888";
-                return `<div class="tier-tag" style="border-color: ${borderColor}; color: ${textColor}">${gmIcons[gm] || "❓"} ${tr}</div>`;
-            }).join('');
-            
-            container.innerHTML += `
-                <div class="player-row">
-                    <div class="rank-id ${rClass}">${rIcon}</div>
-                    <div class="player-name">${p.name}</div>
-                    <div class="multi-ranks">${ranksHtml}</div>
-                </div>`;
-        });
-    }
+            <div class="stat-card">
+                <span class="stat-label">Crystal PvP</span>
+                <div class="stat-value ht-text">🔮 HT4</div>
+            </div>
 
-    updateList();
-</script>
+            <div class="stat-card">
+                <span class="stat-label">Axe Combat</span>
+                <div class="stat-value ht-text">🪓 HT5</div>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-label">UHC Survival</span>
+                <div class="stat-value lt-text">🍎 LT5</div>
+            </div>
+
+            <div class="stat-card mace-full">
+                <span class="stat-label">Mace Specialist</span>
+                <div class="stat-value lt-text">🔨 LT5</div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
